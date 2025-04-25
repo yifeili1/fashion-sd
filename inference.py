@@ -7,7 +7,7 @@ general_prompt = " ,(full-length portrait: 1.5), (8k, RAW photo, best quality, m
 
 
 
-prompt = "male, 1man, pure color sleeveless top garment, denim medium short pants"
+prompt = "male, 1man, pure color sleeveless top garment, denim medium short pants, tall"
 payload = {
     "negative_prompt": "EasyNegative, paintings, sketches, (worst quality:2), (low quality:2), (normal quality:2), lowres, normal quality, ((monochrome)), ((grayscale)), skin spots, acnes, skin blemishes, age spot, ,extra fingers,fewer fingers, strange fingers, bad hand, fat ass, hole, naked, fat thigh,6 fingers, underwear, nsfw, nude,leg open, fat",
     "steps": 20,
