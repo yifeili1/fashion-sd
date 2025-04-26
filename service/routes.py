@@ -6,9 +6,13 @@ This module implements the RESTful API endpoints for the Fashion Design service.
 
 from flask import Blueprint, jsonify, request
 from service.models import db, FashionDesign
+from service.image_generator import ImageGenerator
 
 # Create a Blueprint for the fashion design routes
 fashion_design_bp = Blueprint('fashion_design', __name__)
+
+# Initialize the image generator
+image_generator = ImageGenerator()
 
 @fashion_design_bp.route('/designs', methods=['GET'])
 def list_designs():
@@ -25,16 +29,24 @@ def create_design():
     if not data or 'prompt' not in data:
         return jsonify({'error': 'Prompt is required'}), 400
     
-    # Create new design
-    design = FashionDesign(
-        prompt=data['prompt'],
-        negative_prompt=data.get('negative_prompt', ''),
-        width=data.get('width', 512),
-        height=data.get('height', 512),
-        file_path=data.get('file_path', '')
-    )
-    
     try:
+        # Generate the image
+        file_path = image_generator.generate_image(
+            prompt=data['prompt'],
+            negative_prompt=data.get('negative_prompt', ''),
+            width=data.get('width', 512),
+            height=data.get('height', 512)
+        )
+        
+        # Create new design
+        design = FashionDesign(
+            prompt=data['prompt'],
+            negative_prompt=data.get('negative_prompt', ''),
+            width=data.get('width', 512),
+            height=data.get('height', 512),
+            file_path=file_path
+        )
+        
         db.session.add(design)
         db.session.commit()
         return jsonify(design.serialize()), 201
