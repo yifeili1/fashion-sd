@@ -1,0 +1,2 @@
+https://huggingface.co/wangjun/majicmix-realistic-v6
+ out=majicmix-realistic-v6

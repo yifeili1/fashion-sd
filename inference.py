@@ -2,7 +2,7 @@ import requests
 import base64
 
 # Define the URL and the payload to send.
-url = "http://127.0.0.1:7861"
+url = "http://127.0.0.1:7860"
 general_prompt = " ,(full-length portrait: 1.5), (8k, RAW photo, best quality, masterpiece:1.2), (realistic, photo-realistic:1.37), (male:1.3), studio light, white backgrouond, smile"
 
 
