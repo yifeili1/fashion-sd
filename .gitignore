@@ -28,4 +28,10 @@ sd-webui/tmp/
 .idea/
 
 # Project specific
-output.png 
+output.png
+
+# Ignore generated images and database files
+service/static/images/
+*.db
+*.sqlite3
+instance/ 
