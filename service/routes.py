@@ -7,6 +7,7 @@ This module implements the RESTful API endpoints for the Fashion Design service.
 from flask import Blueprint, jsonify, request
 from service.models import db, FashionDesign
 from service.image_generator import ImageGenerator
+import os
 
 # Create a Blueprint for the fashion design routes
 fashion_design_bp = Blueprint('fashion_design', __name__)
@@ -70,6 +71,9 @@ def delete_design(design_id):
         return jsonify({'error': 'Design not found'}), 404
     
     try:
+        # Remove the image file if it exists
+        if design.file_path and os.path.isfile(design.file_path):
+            os.remove(design.file_path)
         db.session.delete(design)
         db.session.commit()
         return '', 204
