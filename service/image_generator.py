@@ -8,9 +8,10 @@ from datetime import datetime
 from uuid import uuid4
 
 class ImageGenerator:
-    def __init__(self, webui_url="http://127.0.0.1:7860", output_dir="service/static/images"):
+    def __init__(self, webui_url="http://127.0.0.1:7860", output_dir="service/static/images", sd_model_checkpoint="chilloutmix_NiPrunedFp32Fix"):
         self.webui_url = webui_url
         self.output_dir = output_dir
+        self.sd_model_checkpoint = sd_model_checkpoint
         os.makedirs(output_dir, exist_ok=True)
         
         # General prompt settings
@@ -37,7 +38,10 @@ class ImageGenerator:
             "negative_prompt": negative_prompt or self.default_negative_prompt,
             "steps": steps,
             "width": width,
-            "height": height
+            "height": height,
+            "override_settings": {
+                "sd_model_checkpoint": self.sd_model_checkpoint
+            }
         }
 
         try:
