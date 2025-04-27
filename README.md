@@ -35,6 +35,26 @@ pip install -r requirements.txt
 python3 -m models.init_db
 ```
 
+3. Starting All Services
+
+To start the web UI, Flask RESTful API, and Streamlit frontend together, use the provided script:
+
+```bash
+chmod +x start_all.sh
+./start_all.sh
+```
+
+This script will:
+- Start the Stable Diffusion web UI in the background
+- Wait for the web UI to be ready
+- Start the Flask RESTful service
+- Wait for the RESTful service to be ready
+- Start the Streamlit frontend app
+
+You can then access the services at:
+- Streamlit frontend: http://<your-server-ip>:8501
+- RESTful API: http://<your-server-ip>:5000
+
 4. Run tests:
 ```bash
 python3 -m pytest tests/
@@ -331,24 +351,3 @@ The project includes a modern Streamlit-based frontend for interacting with the 
 
 The frontend communicates with the backend RESTful API and displays images and metadata in a user-friendly interface.
 
-## Starting All Services
-
-To start the web UI, Flask RESTful API, and Streamlit frontend together, use the provided script:
-
-```bash
-chmod +x start_all.sh
-./start_all.sh
-```
-
-This script will:
-- Start the Stable Diffusion web UI in the background
-- Wait for the web UI to be ready
-- Start the Flask RESTful service
-- Wait for the RESTful service to be ready
-- Start the Streamlit frontend app
-
-You can then access the services at:
-- Streamlit frontend: http://<your-server-ip>:8501
-- RESTful API: http://<your-server-ip>:5000
-
-If running on a cloud VM, ensure your firewall allows inbound traffic on ports 5000 and 8501. 
