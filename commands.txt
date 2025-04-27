@@ -1,2 +1,0 @@
-./sd-webui/webui.sh --listen --xformers --share -api
-cp gs://fashion-sd-models/sd_xl_base_1.0.safetensors fashion-sd/sd-webui/models/Stable-diffusion/

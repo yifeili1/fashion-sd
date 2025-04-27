@@ -35,3 +35,4 @@ service/static/images/
 *.db
 *.sqlite3
 instance/ 
+commands.txt
