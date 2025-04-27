@@ -319,4 +319,36 @@ curl -X DELETE http://localhost:5000/designs/{id}
 
 # Download design image (replace {id} with actual UUID)
 curl -X GET http://localhost:5000/designs/{id}/image --output design_image.png
-``` 
+```
+
+## Frontend Implementation
+
+The project includes a modern Streamlit-based frontend for interacting with the Fashion Design RESTful API. The frontend provides:
+- A gallery page to browse generated designs
+- A creation page to generate new designs using text prompts
+- A details page to view, download, or delete a design
+- An about page with project information
+
+The frontend communicates with the backend RESTful API and displays images and metadata in a user-friendly interface.
+
+## Starting All Services
+
+To start the web UI, Flask RESTful API, and Streamlit frontend together, use the provided script:
+
+```bash
+chmod +x start_all.sh
+./start_all.sh
+```
+
+This script will:
+- Start the Stable Diffusion web UI in the background
+- Wait for the web UI to be ready
+- Start the Flask RESTful service
+- Wait for the RESTful service to be ready
+- Start the Streamlit frontend app
+
+You can then access the services at:
+- Streamlit frontend: http://<your-server-ip>:8501
+- RESTful API: http://<your-server-ip>:5000
+
+If running on a cloud VM, ensure your firewall allows inbound traffic on ports 5000 and 8501. 
