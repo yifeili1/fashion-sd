@@ -208,7 +208,7 @@ def show_create():
 def show_design():
     """Show the design details page"""
     if "current_design" not in st.session_state:
-        st.session_state.current_page = "gallery"
+        st.session_state.current_page = "Gallery"
         return
     
     design = st.session_state.current_design
@@ -251,7 +251,7 @@ def show_design():
             
             if st.button("New Design with Same Prompt"):
                 st.session_state.create_prompt = design["prompt"]
-                st.session_state.current_page = "create"
+                st.session_state.current_page = "Create"
                 st.rerun()
             
             if st.button("Delete Design"):
@@ -259,13 +259,13 @@ def show_design():
                     if delete_design(design["id"]):
                         st.success("Design deleted successfully!")
                         st.session_state.current_design = None
-                        st.session_state.current_page = "gallery"
+                        st.session_state.current_page = "Gallery"
                         st.rerun()
                     else:
                         st.error("Failed to delete design")
             
             if st.button("Back to Gallery"):
-                st.session_state.current_page = "gallery"
+                st.session_state.current_page = "Gallery"
                 st.rerun()
     
     with col2:
@@ -273,7 +273,7 @@ def show_design():
 
 # Initialize session state
 if "current_page" not in st.session_state:
-    st.session_state.current_page = "gallery"
+    st.session_state.current_page = "Gallery"
 if "create_prompt" not in st.session_state:
     st.session_state.create_prompt = ""
 if "current_design" not in st.session_state:
@@ -282,45 +282,30 @@ if "current_design" not in st.session_state:
 # Navigation sidebar with improved styling
 st.sidebar.title("FashionSD")
 navigation_options = ["Gallery", "Create", "About"]
-current_page = st.session_state.current_page
 
-# Only show navigation radio when not on the 'show' page
-if current_page != "show":
+# Use radio button value directly for navigation, only use session state for 'show' page
+if st.session_state.get("current_page", "Gallery") != "show":
     selected_page = st.sidebar.radio(
         "Menu",
         navigation_options,
-        index=navigation_options.index(
-            "Gallery" if current_page == "gallery"
-            else "Create" if current_page == "create"
-            else "About"
-        ),
+        index=navigation_options.index(st.session_state.get("current_page", "Gallery")),
         key="navigation_radio"
     )
-
-    # Update current page based on selection
     if selected_page == "Gallery":
-        st.session_state.current_page = "gallery"
+        show_gallery()
     elif selected_page == "Create":
-        st.session_state.current_page = "create"
+        show_create()
     elif selected_page == "About":
-        st.session_state.current_page = "about"
-
-# Show the current page
-if st.session_state.current_page == "gallery":
-    show_gallery()
-elif st.session_state.current_page == "create":
-    show_create()
-elif st.session_state.current_page == "show":
-    show_design()
-elif st.session_state.current_page == "about":
-    st.title("About FashionSD")
-    st.markdown("""
-    FashionSD is a fashion design system built on top of Stable Diffusion.
-    
-    This application allows you to:
-    - Browse existing fashion designs
-    - Create new designs using text prompts
-    - View and manage your designs
-    
-    Created with ❤️ using Streamlit
-    """) 
+        st.title("About FashionSD")
+        st.markdown("""
+        FashionSD is a fashion design system built on top of Stable Diffusion.
+        
+        This application allows you to:
+        - Browse existing fashion designs
+        - Create new designs using text prompts
+        - View and manage your designs
+        
+        Created with ❤️ using Streamlit
+        """)
+else:
+    show_design() 
