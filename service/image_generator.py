@@ -44,7 +44,6 @@ class ImageGenerator:
             "sampler_name": "DPM++ SDE", 
             "sampler_index": "DPM++ SDE",
             "cfg_scale": 7,
-            "seed": 1,
             "scheduler": "Automatic",
             #"override_settings": {
             #    "sd_model_checkpoint": self.sd_model_checkpoint
