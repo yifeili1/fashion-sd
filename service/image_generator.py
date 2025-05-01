@@ -32,16 +32,23 @@ class ImageGenerator:
         Returns:
             str: Path to the generated image
         """
+        final_prompt = "(" + prompt + ": 1.4)" + self.general_prompt
         # Prepare the payload
         payload = {
-            "prompt": f"({prompt}:1.4){self.general_prompt}",
-            "negative_prompt": negative_prompt or self.default_negative_prompt,
+            "prompt": final_prompt,
+            #"negative_prompt": negative_prompt or self.default_negative_prompt,
+            "negative_prompt": self.default_negative_prompt,
             "steps": steps,
             "width": width,
             "height": height,
-            "override_settings": {
-                "sd_model_checkpoint": self.sd_model_checkpoint
-            }
+            "sampler_name": "DPM++ SDE", 
+            "sampler_index": "DPM++ SDE",
+            "cfg_scale": 7,
+            "seed": 1,
+            "scheduler": "Automatic",
+            #"override_settings": {
+            #    "sd_model_checkpoint": self.sd_model_checkpoint
+            #}
         }
 
         try:
