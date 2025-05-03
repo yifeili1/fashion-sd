@@ -17,6 +17,7 @@ class ImageGenerator:
         # General prompt settings
         self.general_prompt = " ,(full-length portrait: 1.5), (8k, RAW photo, best quality, masterpiece:1.2), (realistic, photo-realistic:1.37), (male:1.3), studio light, white backgrouond, smile"
         self.default_negative_prompt = "EasyNegative, paintings, sketches, (worst quality:2), (low quality:2), (normal quality:2), lowres, normal quality, ((monochrome)), ((grayscale)), skin spots, acnes, skin blemishes, age spot, ,extra fingers,fewer fingers, strange fingers, bad hand, fat ass, hole, naked, fat thigh,6 fingers, underwear, nsfw, nude,leg open, fat"
+        self.lora = "<lora:fashion-lora:1.3>,"
 
     def generate_image(self, prompt, negative_prompt=None, width=512, height=1024, steps=20):
         """
@@ -32,7 +33,7 @@ class ImageGenerator:
         Returns:
             str: Path to the generated image
         """
-        final_prompt = "(" + prompt + ": 1.4)" + self.general_prompt
+        final_prompt = self.lora + "(" + prompt + ": 1.4)" + self.general_prompt
         # Prepare the payload
         payload = {
             "prompt": final_prompt,
